@@ -25,16 +25,13 @@ fn entry_point() -> ! {
     // Infrared sensor
     let mut ir_sensor = Mlx9061x::new_mlx90614(i2c, addr, 5).unwrap(); 
 
-    // grab the current infrared levels from channel 1 
-    // and write the out to the serial buffer.
+    // grab the current tempature of the nail in fahrenheit 
+    // and write it out to the serial buffer for now, but LCD
+    // display next.
     loop {
-        let ir_c1 = ir_sensor.raw_ir_channel1().unwrap();
-        let ir_c2 = ir_sensor.raw_ir_channel1().unwrap();
+        let temp = ir_sensor.obj1_temp_f().unwrap();
 
-        ufmt::uwriteln!(
-            &mut sb, 
-            "infrared channel 1: {} | infrared channel 2: {}", 
-            ir_c1, ir_c2
-        ).unwrap();
+        // TODO: output tempature to lcd display
+        ufmt::uwriteln!(&mut sb, "current nail tempature: {}°F", temp).unwrap();
     }
 }
