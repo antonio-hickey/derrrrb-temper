@@ -15,8 +15,9 @@ panic-halt = "0.2.0"
 ufmt = "0.2.0"
 nb = "0.1.2"
 embedded-hal = "0.2.3"
-mlx9061x = { git = "https://github.com/antonio-hickey/mlx9061x-rs.git" }
+#mlx9061x = { git = "https://github.com/antonio-hickey/mlx9061x-rs.git" }
 ufmt_float = "0.2.0"
+smbus-pec = "1"
 
 [dependencies.arduino-hal]
 git = "https://github.com/rahix/avr-hal"

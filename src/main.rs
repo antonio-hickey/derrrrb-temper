@@ -1,8 +1,24 @@
 #![no_std]
 #![no_main]
 
+use core::marker::PhantomData;
 use panic_halt as _;
-use mlx9061x::{Mlx9061x, SlaveAddr};
+mod mlx90614;
+pub use crate::mlx90614::wake_mlx90614;
+mod types;
+pub use crate::types::{ic, Error, SlaveAddr};
+mod register_access;
+
+// MLX90614 device driver
+#[derive(Debug)]
+struct Mlx9061x<I2C, IC> {
+    // The concrete I²C device implementation.
+    i2c: I2C,
+    eeprom_write_delay_ms: u8,
+    address: u8,
+    _ic: PhantomData<IC>,
+}
+
 
 #[arduino_hal::entry]
 fn entry_point() -> ! {
